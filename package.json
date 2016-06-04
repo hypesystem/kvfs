@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/hypesystem/kvfs/issues"
   },
-  "homepage": "https://github.com/hypesystem/kvfs#readme"
+  "homepage": "https://github.com/hypesystem/kvfs#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.5"
+  }
 }
