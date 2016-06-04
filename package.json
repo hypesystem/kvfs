@@ -1,6 +1,6 @@
 {
   "name": "kvfs",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Key-Value store based on the file system",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/hypesystem/kvfs#readme",
   "dependencies": {
-    "async": "^2.0.0-rc.5"
+    "async": "^2.0.0-rc.5",
+    "eventemitter2": "^1.0.3"
   }
 }
