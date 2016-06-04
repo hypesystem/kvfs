@@ -22,24 +22,79 @@ Install the package from npm using your commandline:
 
     npm install kvfs --save
 
-In your file that needs access to the file store simply instantiate it like this:
+Documentation
+-------------
+
+To create a new key-value store, simply pass the relative (to where you are running the app from) path for the store.
 
 ```js
-var kvfs = require("kvfs")(".data");
-
-kvfs.set("my_first_entry", "Hello, world. This is a quick test entry.", (error) => {
-    if(error) {
-        return console.error("Failed to set entry.", error);
-    }
-    console.log("Saved my first entry.");
-    kvfs.get("my_first_entry", (error, value) => {
-        if(error) {
-            return console.error("Failed to get my entry.", error);
-        }
-        console.log("Read the entry back. Its value was:", value);
-    });
-});
+var kvfs = require("kvfs");
+var myStore = kvfs(".myStore");
 ```
+
+This will create a folder ".myStore" in your current working directory.
+
+On `myStore` you can now call any of the supported functions, to work with your key-value store:
+
+### set
+
+```js
+myStore.set(key, value, callback)
+```
+
+- **key** string key to use for lookup
+- **value** any kind of standard JSON value (string, number, boolean, object, array).
+  If it is not a standard value (a cyclic object, an object with functionality) kvfs will attempt to coerce it to JSON (basically `JSON.stringify`).
+- **callback** should take a single argument, `error`, in case something goes wrong.
+
+### get
+
+```js
+myStore.get(key, callback)
+```
+
+- **key** corresponding key: will retrieve the value that has been set for this key or fail
+- **callback** should take two arguments:
+  - `error` in case something goes wrong
+  - `value` the value retrieved
+
+### del
+
+```js
+myStore.del(key, callback)
+```
+
+- **key** the key to delete: the value will be erased
+- **callback** should take a single argument, `error`, in case something goes wrong.
+
+### list
+
+```js
+myStore.list(prefix, callback)
+```
+
+This function works on collections.
+A collection consists of all entries with a shared prefix, ended with a forward slash `/`.
+
+- **prefix** the collection prefix to look for.
+  For example, `"hello"` will match `"hello/world"`, `"hello/kitty"`, and even `"hello/it/is/me"`, but not `"hello-there"`.
+  The prefix must be immediately followed by a forward slash `/`.
+- **callback** should take two arguments:
+  - `error` in case something goes wrong
+  - `children` all of the entries belonging to the collection
+
+### len
+
+```js
+myStore.len(prefix, callback);
+```
+
+Like `.list`, but returning the number of children.
+
+- **prefix** the collection prefix to look for.
+- **callback** should take two arguments:
+  - `error` in case something goes wrong
+  - `length` (number) the number of entries in the collection
 
 Contributing
 ------------
