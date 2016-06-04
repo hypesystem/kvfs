@@ -34,7 +34,8 @@ var myStore = kvfs(".myStore");
 
 This will create a folder ".myStore" in your current working directory.
 
-On `myStore` you can now call any of the supported functions, to work with your key-value store:
+On `myStore` you can now call any of the supported functions, to work with your key-value store (below).
+In addition, the store is an event emitter, which lets you listen on changes to entries.
 
 ### set
 
@@ -81,12 +82,12 @@ A collection consists of all entries with a shared prefix, ended with a forward 
   The prefix must be immediately followed by a forward slash `/`.
 - **callback** should take two arguments:
   - `error` in case something goes wrong
-  - `children` all of the entries belonging to the collection
+  - `descendants` all of the entries belonging to the collection
 
 ### len
 
 ```js
-myStore.len(prefix, callback);
+myStore.len(prefix, callback)
 ```
 
 Like `.list`, but returning the number of children.
@@ -95,6 +96,22 @@ Like `.list`, but returning the number of children.
 - **callback** should take two arguments:
   - `error` in case something goes wrong
   - `length` (number) the number of entries in the collection
+
+### on
+
+```js
+myStore.on(key, listener)
+```
+
+- **key** key to listen for changes on.
+  May use wildcards, for example `"hello/**"` will listen to changes for all entries in the `hello` collection (all descendants of `"hello"`).
+- **listener** takes the exact key of the element that was changed.
+
+Also supported:
+
+- `once`
+- `onAny`
+- ...
 
 Contributing
 ------------
