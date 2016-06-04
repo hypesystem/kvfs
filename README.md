@@ -6,10 +6,6 @@ It takes no time to set up, no infrastructure other than a file system, and lets
 
 **PLEASE NOTE** that pre-1.0 this package might *change its interface* in a breaking manner between minor version bumps.
 
-A goal of this package (as of start) is to have an interface that is a subset of that of [node_redis](https://github.com/NodeRedis/node_redis).
-This might change, seeing as we rely on callbacks and node_redis does not.
-The idea stands: we want to offer a drop-in replacement when users are ready to move from prototype to serious architecture.
-
 kvfs **should not** be used for serious production stuff, but is useful for getting started quickly.
 It uses the filesystem and is inherently *undistributable*.
 The goal is simple: get you started quick, let you decide on underlying layers later.
