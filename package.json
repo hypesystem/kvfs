@@ -1,6 +1,6 @@
 {
   "name": "kvfs",
-  "version": "0.2.7",
+  "version": "0.2.9",
   "description": "Key-Value store based on the file system",
   "main": "index.js",
   "scripts": {
